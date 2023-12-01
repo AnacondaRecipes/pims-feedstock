@@ -1,30 +1,29 @@
 {% set name = "PIMS" %}
-{% set version = "0.5" %}
+{% set version = "0.6.1" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: a02cdcbb153e2792042fb0bae7df4f30878bbba1f2d176114a87ee0dc18715a0
+  sha256: e2b704461d4ea9bce8b6a22ca35836fe67d6d34537736b405341ae5547194f3b
 
 build:
-  number: 1
-  noarch: python
-  script: {{ PYTHON }} -m pip install . -vv
+  number: 0
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
   host:
     - python
     - pip
-
+    - setuptools
+    - wheel
   run:
     - python
+    - imageio
+    - numpy >=1.19
     - slicerator >=0.9.8
-    - six >=1.8
-    - numpy >=1.7
 # The following dependencies are only required for rich IPython display
     - jinja2
     - pillow
@@ -54,13 +53,21 @@ test:
     - pims.utils
     - pims.utils.misc
     - pims.utils.sort
+  commands:
+    - pip check
+  requires:
+    - pip
 
 about:
   home: https://github.com/soft-matter/pims
   license: BSD-3-Clause
+  license_family: BSD
   license_file: license.txt
   summary: >
     Python Image Sequence. Load video and sequential images in many formats with a simple, consistent interface.
+  dev_url: https://github.com/soft-matter/pims
+  doc_url: https://soft-matter.github.io/pims/
+
 extra:
   recipe-maintainers:
     - danielballan
