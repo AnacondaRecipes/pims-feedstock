@@ -1,13 +1,13 @@
 {% set name = "PIMS" %}
-{% set version = "0.6.1" %}
+{% set version = "0.7" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: e2b704461d4ea9bce8b6a22ca35836fe67d6d34537736b405341ae5547194f3b
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name|lower }}-{{ version }}.tar.gz
+  sha256: 55907a4c301256086d2aa4e34a5361b9109f24e375c2071e1117b9491e82946b
 
 build:
   number: 0
@@ -23,12 +23,8 @@ requirements:
     - python
     - imageio
     - numpy >=1.19
+    - packaging
     - slicerator >=0.9.8
-# The following dependencies are only required for rich IPython display
-    - jinja2
-    - pillow
-# The following dependencies are optional (for specific readers)
-    - matplotlib-base  # one of { scikit-image | matplotlib-base }
     - tifffile
 
 test:
